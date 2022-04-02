@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Taskus" Version="0.0.5" />
+    <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="Quartz" Version="3.3.3" />
+    <PackageReference Include="Microsoft.ClearScript.V8" Version="7.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Watcher.DAL.Database\Watcher.DAL.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Quartz" />
+    <None Remove="Jobs\" />
+    <None Remove="Jint" />
+    <None Remove="Microsoft.ClearScript.V8" />
+    <None Remove="Services\Js\" />
+    <None Remove="Models\Js\" />
+    <None Remove="Models\Js\Fetch\" />
+    <None Remove="Models\TestExecutions\" />
+    <None Remove="Models\Notificators\" />
+    <None Remove="Models\Notificatorindings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Jobs\" />
+    <Folder Include="Services\Js\" />
+    <Folder Include="Models\Js\" />
+    <Folder Include="Models\Js\Fetch\" />
+    <Folder Include="Models\TestExecutions\" />
+    <Folder Include="Models\Notificators\" />
+    <Folder Include="Models\NotificatorBindings\" />
+  </ItemGroup>
+</Project>

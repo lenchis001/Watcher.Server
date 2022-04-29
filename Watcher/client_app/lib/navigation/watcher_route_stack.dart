@@ -1,20 +1,23 @@
+import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/screens/home_screen.dart';
 import 'package:client_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'watcher_route_part.dart';
 
 class WatcherRouteStack {
+  final INavigationService _navigationService;
+
   static const String _homeSegmentName = 'home';
   static const String _signInSegmentName = 'signIn';
   static const String _unknownSegmentName = 'unknown';
 
   final navigationHistory = List<WatcherRoutePart>.empty(growable: true);
 
-  WatcherRouteStack.defaultStack() {
-    navigationHistory.add(WatcherRoutePart.signIn());
+  WatcherRouteStack.defaultStack(this._navigationService) {
+    navigationHistory.add(WatcherRoutePart.home());
   }
 
-  WatcherRouteStack.fromPathSegments(List<String> pathSegments) {
+  WatcherRouteStack.fromPathSegments(this._navigationService, List<String> pathSegments) {
     if (pathSegments.isEmpty) {
       navigationHistory.add(WatcherRoutePart.home());
     } else {
@@ -38,7 +41,7 @@ class WatcherRouteStack {
     return navigationHistory
         .map<MaterialPage>((e) => e.map(
             home: (_) => const MaterialPage(child: HomeScreen()),
-            signIn: (_) => const MaterialPage(child: SignInScreen()),
+            signIn: (_) => MaterialPage(child: SignInScreen(navigationService: _navigationService)),
             unknown: (_) => const MaterialPage(child: HomeScreen())))
         .toList();
   }

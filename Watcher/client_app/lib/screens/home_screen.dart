@@ -15,11 +15,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white70,
         titleTextStyle: const TextStyle(color: Colors.black),
         actions: [
-          ElevatedButton(onPressed: (){}, child: const Text('Tests')),
-          ElevatedButton(onPressed: (){}, child: const Text('Notification')),
-          const SizedBox(width: 128),
-          ElevatedButton(onPressed: (){
-          }, child: const Text('Sign Out'))
         ],
       ),
       body: Container(

@@ -1,7 +1,14 @@
+import 'package:client_app/navigation/inavigation_service.dart';
+import 'package:client_app/navigation/watcher_route_part.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  final INavigationService navigationService;
+
+  const SignInScreen({
+    Key? key,
+    required this.navigationService
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       ElevatedButton(
                           onPressed: () {
-
+                            navigationService.navigateTo(WatcherRoutePart.home());
                             }, child: const Text('Sign In'))
                     ],
                   )

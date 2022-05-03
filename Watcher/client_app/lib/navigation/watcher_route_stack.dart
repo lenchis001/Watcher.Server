@@ -1,11 +1,15 @@
+import 'package:automap/automap.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/screens/home_screen.dart';
 import 'package:client_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:watcher_client_bll/watcher_client_bll.dart';
 import 'watcher_route_part.dart';
 
 class WatcherRouteStack {
-  final INavigationService _navigationService;
+  final INavigationService navigationService;
+  final IUserService userService;
+  final AutoMapper mapper;
 
   static const String _homeSegmentName = 'home';
   static const String _signInSegmentName = 'signIn';
@@ -13,13 +17,23 @@ class WatcherRouteStack {
 
   final navigationHistory = List<WatcherRoutePart>.empty(growable: true);
 
-  WatcherRouteStack.defaultStack(this._navigationService) {
-    navigationHistory.add(WatcherRoutePart.home());
+  WatcherRouteStack.defaultStack({
+    required this.navigationService,
+    required this.userService,
+    required this.mapper
+  }) {
+    navigationHistory.add(WatcherRoutePart.signIn());
+
   }
 
-  WatcherRouteStack.fromPathSegments(this._navigationService, List<String> pathSegments) {
+  WatcherRouteStack.fromPathSegments({
+    required this.navigationService,
+    required this.userService,
+    required this.mapper,
+    required List<String> pathSegments
+  }) {
     if (pathSegments.isEmpty) {
-      navigationHistory.add(WatcherRoutePart.home());
+      navigationHistory.add(WatcherRoutePart.signIn());
     } else {
       for (var segment in pathSegments) {
         switch (segment) {
@@ -41,7 +55,11 @@ class WatcherRouteStack {
     return navigationHistory
         .map<MaterialPage>((e) => e.map(
             home: (_) => const MaterialPage(child: HomeScreen()),
-            signIn: (_) => MaterialPage(child: SignInScreen(navigationService: _navigationService)),
+            signIn: (_) => MaterialPage(child: SignInScreen(
+              navigationService: navigationService,
+              userService: userService,
+              mapper: mapper,
+            )),
             unknown: (_) => const MaterialPage(child: HomeScreen())))
         .toList();
   }

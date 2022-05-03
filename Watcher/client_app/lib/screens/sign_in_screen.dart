@@ -1,13 +1,24 @@
+import 'package:automap/automap.dart';
+import 'package:client_app/models/default_processing_result.dart';
+import 'package:client_app/models/error_code.dart';
+import 'package:client_app/models/user/sign_in.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/navigation/watcher_route_part.dart';
 import 'package:flutter/material.dart';
+import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
 class SignInScreen extends StatelessWidget {
   final INavigationService navigationService;
+  final wcb.IUserService userService;
+  final AutoMapper mapper;
 
-  const SignInScreen({
+  String _email = '', _password = '';
+
+  SignInScreen({
     Key? key,
-    required this.navigationService
+    required this.navigationService,
+    required this.userService,
+    required this.mapper
   }) : super(key: key);
 
   @override
@@ -49,22 +60,51 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   const Text('Login'),
-                  const TextField(),
+                  TextField(
+                    onChanged: (value) => _email = value,
+                  ),
                   const SizedBox(height: 16),
                   const Text('Password'),
-                  const TextField(),
+                  TextField(
+                    onChanged: (value) => _password = value,
+                    obscureText: true,
+                  ),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
-                          onPressed: () {
-                            navigationService.navigateTo(WatcherRoutePart.home());
-                            }, child: const Text('Sign In'))
+                          onPressed: () => _onSignInRequested(context),
+                          child: const Text('Sign In')
+                      )
                     ],
                   )
                 ],
               ),
             ))));
+  }
+
+  void _onSignInRequested(BuildContext context) async {
+    final bllModel = mapper.map<SignIn, wcb.SignIn>(SignIn(_email, _password));
+    final bllResult = await userService.signIn(bllModel);
+    final result = mapper.map<wcb.DefaultProcessingResult, DefaultProcessingResult>(bllResult);
+
+    switch(result.Error) {
+      case ErrorCode.OK:
+        navigationService.navigateToRoot(WatcherRoutePart.home());
+        break;
+      default:
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: const Text('An error happened.'),
+              content: const Text('An error happened on attempt to sign in. Please check input data and try again.'),
+              actions: [
+                ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Close'))
+              ],
+            ),
+        );
+        break;
+    }
   }
 }

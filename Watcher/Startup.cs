@@ -59,6 +59,11 @@ namespace Watcher
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseCors(policy =>
+				{
+					policy.AllowAnyOrigin();
+					policy.AllowAnyHeader();
+				});
 			}
 			else
 			{

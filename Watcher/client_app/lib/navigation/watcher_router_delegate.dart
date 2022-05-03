@@ -1,24 +1,41 @@
+import 'package:automap/automap.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/navigation/watcher_route_stack.dart';
 import 'package:flutter/material.dart';
+import 'package:watcher_client_bll/watcher_client_bll.dart';
 
 class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack> with ChangeNotifier {
-  final INavigationService _navigationService;
+  final INavigationService navigationService;
+  final IUserService userService;
+  final AutoMapper mapper;
+
   WatcherRouteStack? _currentConfiguration;
 
   @override
   WatcherRouteStack get currentConfiguration =>
-      _currentConfiguration ?? WatcherRouteStack.defaultStack(_navigationService);
+      _currentConfiguration ?? WatcherRouteStack.defaultStack(
+          navigationService: navigationService,
+          userService: userService,
+          mapper: mapper
+      );
 
-  WatcherRouterDelegate(this._navigationService) {
-    _currentConfiguration = WatcherRouteStack.defaultStack(_navigationService);
-    _navigationService.navigationEvent.subscribe((args) {
+  WatcherRouterDelegate({
+      required this.navigationService,
+      required this.userService,
+      required this.mapper
+  }) {
+    _currentConfiguration = WatcherRouteStack.defaultStack(
+        navigationService: navigationService,
+        userService: userService,
+        mapper: mapper
+    );
+    navigationService.navigationEvent.subscribe((args) {
       if(args==null) return;
       currentConfiguration.navigationHistory.add(args);
       notifyListeners();
     });
 
-    _navigationService.navigationToRootEvent.subscribe((args) {
+    navigationService.navigationToRootEvent.subscribe((args) {
       if(args==null) return;
       currentConfiguration.navigationHistory.clear();
       currentConfiguration.navigationHistory.add(args);
@@ -26,7 +43,7 @@ class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack> with Chang
     });
 
 
-    _navigationService.navigationBackEvent.subscribe((args) {
+    navigationService.navigationBackEvent.subscribe((args) {
       if(args==null) return;
       currentConfiguration.navigationHistory.removeLast();
       notifyListeners();

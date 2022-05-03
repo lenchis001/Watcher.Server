@@ -1,0 +1,15 @@
+name: watcher_client_bll
+description: BLL layer of watcher client
+version: 0.0.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  automap: 0.0.3
+  get_it: 7.2.0
+  http: ^0.13.4
+  watcher_client_dal:
+    path: ../watcher_client_dal
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"

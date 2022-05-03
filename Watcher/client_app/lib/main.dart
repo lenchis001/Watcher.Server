@@ -10,6 +10,7 @@ import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
 import 'models/default_processing_result.dart';
 import 'models/error_code.dart';
+import 'models/user/add_user.dart';
 
 void main() {
   var container = GetIt.asNewInstance();
@@ -55,7 +56,9 @@ void setupMappings(GetIt container) {
       }
     })
     ..addManualMap<wcb.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
-        DefaultProcessingResult(mapper.map<wcb.ErrorCode, ErrorCode>(source.Error)));
+        DefaultProcessingResult(mapper.map<wcb.ErrorCode, ErrorCode>(source.Error)))
+    ..addManualMap<AddUser, wcb.AddUser>((source, mapper, params) =>
+        wcb.AddUser(source.Email, source.Password));
 
   wcb.Facade.setupMappings(container.get());
 }

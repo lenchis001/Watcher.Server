@@ -1,5 +1,7 @@
-class ProcessingResult<E> {
-  late final E Error;
+import 'package:watcher_client_dal/models/error_code.dart';
 
-  ProcessingResult(this.Error);
+class ProcessingResult<E> {
+  late final E errorCode;
+
+  ProcessingResult({ required this.errorCode });
 }

@@ -56,7 +56,7 @@ void setupMappings(GetIt container) {
       }
     })
     ..addManualMap<wcb.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
-        DefaultProcessingResult(mapper.map<wcb.ErrorCode, ErrorCode>(source.Error)))
+        DefaultProcessingResult(errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode)))
     ..addManualMap<AddUser, wcb.AddUser>((source, mapper, params) =>
         wcb.AddUser(source.Email, source.Password));
 

@@ -1,6 +1,5 @@
 import 'package:automap/automap.dart';
 import 'package:watcher_client_bll/models/default_processing_result.dart';
-import 'package:watcher_client_bll/models/error_code.dart';
 import 'package:watcher_client_bll/models/user/add_user.dart';
 import 'package:watcher_client_bll/models/user/sign_in.dart' as SignInModel;
 import 'package:watcher_client_bll/models/user/user.dart';
@@ -19,8 +18,8 @@ class UserService extends CrudService<User, AddUser, wcd.User, wcd.AddUser, wcd.
   Future<DefaultProcessingResult> signIn(SignInModel.SignIn value) async {
     final dalModel = mapper.map<SignInModel.SignIn, wcd.SignIn>(value);
 
-    await apiService.signIn(dalModel);
-    return DefaultProcessingResult(ErrorCode.OK);
+    final dalResult = await apiService.signIn(dalModel);
+    return mapper.map<wcd.DefaultProcessingResult, DefaultProcessingResult>(dalResult);
   }
 
 }

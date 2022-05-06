@@ -1,5 +1,5 @@
 class ProcessingResult<E> {
-  late final E Error;
+  late final E errorCode;
 
-  ProcessingResult(this.Error);
+  ProcessingResult({ required this.errorCode });
 }

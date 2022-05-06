@@ -122,7 +122,7 @@ class SignInScreen extends StatelessWidget {
     final result = mapper
         .map<wcb.DefaultProcessingResult, DefaultProcessingResult>(bllResult);
 
-    switch (result.Error) {
+    switch (result.errorCode) {
       case ErrorCode.OK:
         navigationService.navigateToRoot(WatcherRoutePart.home());
         break;
@@ -195,7 +195,7 @@ class SignInScreen extends StatelessWidget {
     final result = mapper
         .map<wcb.DefaultProcessingResult, DefaultProcessingResult>(bllResult);
 
-    switch (result.Error) {
+    switch (result.errorCode) {
       case ErrorCode.OK:
         navigationService.navigateToRoot(WatcherRoutePart.home());
         break;

@@ -30,18 +30,18 @@ class Facade {
     mapper
       ..addManualMap<SignIn, wcd.SignIn>((source, mapper, params) =>
           wcd.SignIn(email: source.Email, password: source.Password))
-      ..addManualMap<ErrorCode, wcd.ErrorCode>((source, mapper, params) {
+      ..addManualMap<wcd.ErrorCode, ErrorCode>((source, mapper, params) {
           switch(source) {
-            case ErrorCode.OK:
-              return wcd.ErrorCode.OK;
-            case ErrorCode.UNKNOWN:
-              return wcd.ErrorCode.UNKNOWN;
-            case ErrorCode.UNAUTHORIZED:
-              return wcd.ErrorCode.UNAUTHORIZED;
+            case wcd.ErrorCode.OK:
+              return ErrorCode.OK;
+            case wcd.ErrorCode.UNKNOWN:
+              return ErrorCode.UNKNOWN;
+            case wcd.ErrorCode.UNAUTHORIZED:
+              return ErrorCode.UNAUTHORIZED;
           }
       })
-      ..addManualMap<DefaultProcessingResult, wcd.DefaultProcessingResult>((source, mapper, params) =>
-          wcd.DefaultProcessingResult(mapper.map<ErrorCode, wcd.ErrorCode>(source.Error)))
+      ..addManualMap<wcd.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
+          DefaultProcessingResult(errorCode: mapper.map<wcd.ErrorCode, ErrorCode>(source.errorCode)))
       ..addManualMap<AddUser, wcd.AddUser>((source, mapper, params) =>
           wcd.AddUser(email: source.Email, password: source.Password));
 

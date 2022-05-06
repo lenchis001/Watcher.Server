@@ -8,7 +8,9 @@ import 'package:client_app/navigation/watcher_route_part.dart';
 import 'package:flutter/material.dart';
 import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
-class SignInScreen extends StatelessWidget {
+import 'base_page.dart';
+
+class SignInScreen extends BasePage {
   final INavigationService navigationService;
   final wcb.IUserService userService;
   final AutoMapper mapper;
@@ -23,53 +25,7 @@ class SignInScreen extends StatelessWidget {
       required this.navigationService,
       required this.userService,
       required this.mapper})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-              Colors.redAccent,
-              Colors.cyanAccent,
-              Colors.amberAccent
-            ])),
-        child: Center(
-            child: Container(
-                width: 400,
-                height: 450,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white70),
-                padding: const EdgeInsets.all(40),
-                child: DefaultTabController(
-                    length: 2,
-                    child: Column(
-                      children: [
-                        const TabBar(tabs: [
-                          Tab(
-                              child: Text('Sign In',
-                                  style: TextStyle(color: Colors.black))),
-                          Tab(
-                              child: Text('Sign Up',
-                                  style: TextStyle(color: Colors.black))),
-                        ]),
-                        Expanded(
-                            child: TabBarView(
-                          children: [
-                            _getSignInTabContent(context),
-                            _getSignUpTabContent(context)
-                          ],
-                        ))
-                      ],
-                    )))),
-      ),
-    );
-  }
+      : super(key: key, showAppBar: false);
 
   Widget _getSignInTabContent(BuildContext context) {
     return Column(
@@ -215,5 +171,41 @@ class SignInScreen extends StatelessWidget {
         );
         break;
     }
+  }
+
+  @override
+  Widget buildPage(BuildContext context) {
+    return Center(
+        child: Container(
+            width: 400,
+            height: 450,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.white70),
+            padding: const EdgeInsets.all(40),
+            child: DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    const TabBar(tabs: [
+                      Tab(
+                          child: Text('Sign In',
+                              style: TextStyle(color: Colors.black))),
+                      Tab(
+                          child: Text('Sign Up',
+                              style: TextStyle(color: Colors.black))),
+                    ]),
+                    Expanded(
+                        child: TabBarView(
+                      children: [
+                        _getSignInTabContent(context),
+                        _getSignUpTabContent(context)
+                      ],
+                    ))
+                  ],
+                )
+            )
+        )
+    );
   }
 }

@@ -8,4 +8,5 @@ class WatcherRoutePart extends EventArgs with _$WatcherRoutePart {
   factory WatcherRoutePart.home() = _HomeWatcherRoutePart;
   factory WatcherRoutePart.signIn() = _SignInWatcherRoutePart;
   factory WatcherRoutePart.unknown() = _UnknownWatcherRoutePart;
+  factory WatcherRoutePart.addTest() = _AddTestWatcherRoutePart;
 }

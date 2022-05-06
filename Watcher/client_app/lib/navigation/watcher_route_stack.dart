@@ -1,5 +1,6 @@
 import 'package:automap/automap.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
+import 'package:client_app/screens/add_test.dart';
 import 'package:client_app/screens/home_screen.dart';
 import 'package:client_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class WatcherRouteStack {
   static const String _homeSegmentName = 'home';
   static const String _signInSegmentName = 'signIn';
   static const String _unknownSegmentName = 'unknown';
+  static const String _addTestSegmentName = 'addTest';
 
   final navigationHistory = List<WatcherRoutePart>.empty(growable: true);
 
@@ -43,6 +45,9 @@ class WatcherRouteStack {
           case _signInSegmentName:
             navigationHistory.add(WatcherRoutePart.signIn());
             break;
+          case _addTestSegmentName:
+            navigationHistory.add(WatcherRoutePart.addTest());
+            break;
           default:
             navigationHistory.add(WatcherRoutePart.unknown());
             break;
@@ -60,7 +65,8 @@ class WatcherRouteStack {
               userService: userService,
               mapper: mapper,
             )),
-            unknown: (_) => const MaterialPage(child: HomeScreen())))
+            unknown: (_) => const MaterialPage(child: HomeScreen()),
+            addTest: (_) => const MaterialPage(child: AddTest())))
         .toList();
   }
 
@@ -68,7 +74,9 @@ class WatcherRouteStack {
     final location = navigationHistory.map((e) => e.map(
         home: (_) => _homeSegmentName,
         signIn: (_) => _signInSegmentName,
-        unknown: (_) => _unknownSegmentName)
+        unknown: (_) => _unknownSegmentName,
+        addTest: (_) => _addTestSegmentName
+    )
     ).join('/');
 
     return RouteInformation(location: location);

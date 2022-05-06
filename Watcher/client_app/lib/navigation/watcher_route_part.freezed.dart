@@ -21,6 +21,7 @@ mixin _$WatcherRoutePart {
     required TResult Function() home,
     required TResult Function() signIn,
     required TResult Function() unknown,
+    required TResult Function() addTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$WatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$WatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$WatcherRoutePart {
     required TResult Function(_HomeWatcherRoutePart value) home,
     required TResult Function(_SignInWatcherRoutePart value) signIn,
     required TResult Function(_UnknownWatcherRoutePart value) unknown,
+    required TResult Function(_AddTestWatcherRoutePart value) addTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$WatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$WatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,6 +129,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     required TResult Function() home,
     required TResult Function() signIn,
     required TResult Function() unknown,
+    required TResult Function() addTest,
   }) {
     return home();
   }
@@ -133,6 +140,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
   }) {
     return home?.call();
   }
@@ -143,6 +151,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
     required TResult orElse(),
   }) {
     if (home != null) {
@@ -157,6 +166,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     required TResult Function(_HomeWatcherRoutePart value) home,
     required TResult Function(_SignInWatcherRoutePart value) signIn,
     required TResult Function(_UnknownWatcherRoutePart value) unknown,
+    required TResult Function(_AddTestWatcherRoutePart value) addTest,
   }) {
     return home(this);
   }
@@ -167,6 +177,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
   }) {
     return home?.call(this);
   }
@@ -177,6 +188,7 @@ class _$_HomeWatcherRoutePart implements _HomeWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
     required TResult orElse(),
   }) {
     if (home != null) {
@@ -234,6 +246,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     required TResult Function() home,
     required TResult Function() signIn,
     required TResult Function() unknown,
+    required TResult Function() addTest,
   }) {
     return signIn();
   }
@@ -244,6 +257,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
   }) {
     return signIn?.call();
   }
@@ -254,6 +268,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
     required TResult orElse(),
   }) {
     if (signIn != null) {
@@ -268,6 +283,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     required TResult Function(_HomeWatcherRoutePart value) home,
     required TResult Function(_SignInWatcherRoutePart value) signIn,
     required TResult Function(_UnknownWatcherRoutePart value) unknown,
+    required TResult Function(_AddTestWatcherRoutePart value) addTest,
   }) {
     return signIn(this);
   }
@@ -278,6 +294,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
   }) {
     return signIn?.call(this);
   }
@@ -288,6 +305,7 @@ class _$_SignInWatcherRoutePart implements _SignInWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
     required TResult orElse(),
   }) {
     if (signIn != null) {
@@ -346,6 +364,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     required TResult Function() home,
     required TResult Function() signIn,
     required TResult Function() unknown,
+    required TResult Function() addTest,
   }) {
     return unknown();
   }
@@ -356,6 +375,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
   }) {
     return unknown?.call();
   }
@@ -366,6 +386,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     TResult Function()? home,
     TResult Function()? signIn,
     TResult Function()? unknown,
+    TResult Function()? addTest,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -380,6 +401,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     required TResult Function(_HomeWatcherRoutePart value) home,
     required TResult Function(_SignInWatcherRoutePart value) signIn,
     required TResult Function(_UnknownWatcherRoutePart value) unknown,
+    required TResult Function(_AddTestWatcherRoutePart value) addTest,
   }) {
     return unknown(this);
   }
@@ -390,6 +412,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
   }) {
     return unknown?.call(this);
   }
@@ -400,6 +423,7 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
     TResult Function(_HomeWatcherRoutePart value)? home,
     TResult Function(_SignInWatcherRoutePart value)? signIn,
     TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -411,4 +435,122 @@ class _$_UnknownWatcherRoutePart implements _UnknownWatcherRoutePart {
 
 abstract class _UnknownWatcherRoutePart implements WatcherRoutePart {
   factory _UnknownWatcherRoutePart() = _$_UnknownWatcherRoutePart;
+}
+
+/// @nodoc
+abstract class _$AddTestWatcherRoutePartCopyWith<$Res> {
+  factory _$AddTestWatcherRoutePartCopyWith(_AddTestWatcherRoutePart value,
+          $Res Function(_AddTestWatcherRoutePart) then) =
+      __$AddTestWatcherRoutePartCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$AddTestWatcherRoutePartCopyWithImpl<$Res>
+    extends _$WatcherRoutePartCopyWithImpl<$Res>
+    implements _$AddTestWatcherRoutePartCopyWith<$Res> {
+  __$AddTestWatcherRoutePartCopyWithImpl(_AddTestWatcherRoutePart _value,
+      $Res Function(_AddTestWatcherRoutePart) _then)
+      : super(_value, (v) => _then(v as _AddTestWatcherRoutePart));
+
+  @override
+  _AddTestWatcherRoutePart get _value =>
+      super._value as _AddTestWatcherRoutePart;
+}
+
+/// @nodoc
+
+class _$_AddTestWatcherRoutePart implements _AddTestWatcherRoutePart {
+  _$_AddTestWatcherRoutePart();
+
+  @override
+  String toString() {
+    return 'WatcherRoutePart.addTest()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _AddTestWatcherRoutePart);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() home,
+    required TResult Function() signIn,
+    required TResult Function() unknown,
+    required TResult Function() addTest,
+  }) {
+    return addTest();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? signIn,
+    TResult Function()? unknown,
+    TResult Function()? addTest,
+  }) {
+    return addTest?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? signIn,
+    TResult Function()? unknown,
+    TResult Function()? addTest,
+    required TResult orElse(),
+  }) {
+    if (addTest != null) {
+      return addTest();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_HomeWatcherRoutePart value) home,
+    required TResult Function(_SignInWatcherRoutePart value) signIn,
+    required TResult Function(_UnknownWatcherRoutePart value) unknown,
+    required TResult Function(_AddTestWatcherRoutePart value) addTest,
+  }) {
+    return addTest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_HomeWatcherRoutePart value)? home,
+    TResult Function(_SignInWatcherRoutePart value)? signIn,
+    TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
+  }) {
+    return addTest?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_HomeWatcherRoutePart value)? home,
+    TResult Function(_SignInWatcherRoutePart value)? signIn,
+    TResult Function(_UnknownWatcherRoutePart value)? unknown,
+    TResult Function(_AddTestWatcherRoutePart value)? addTest,
+    required TResult orElse(),
+  }) {
+    if (addTest != null) {
+      return addTest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddTestWatcherRoutePart implements WatcherRoutePart {
+  factory _AddTestWatcherRoutePart() = _$_AddTestWatcherRoutePart;
 }

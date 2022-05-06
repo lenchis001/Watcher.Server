@@ -1,3 +1,4 @@
+import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/screens/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:code_editor/code_editor.dart';
@@ -5,7 +6,8 @@ import 'package:code_editor/code_editor.dart';
 class AddTest extends BasePage {
   const AddTest({
     Key? key,
-  }) : super(key: key);
+    required INavigationService navigationService
+  }) : super(key: key, navigationService: navigationService);
 
   @override
   Widget buildPage(BuildContext context) {

@@ -11,7 +11,6 @@ import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 import 'base_page.dart';
 
 class SignInScreen extends BasePage {
-  final INavigationService navigationService;
   final wcb.IUserService userService;
   final AutoMapper mapper;
 
@@ -22,10 +21,10 @@ class SignInScreen extends BasePage {
 
   SignInScreen(
       {Key? key,
-      required this.navigationService,
+      required INavigationService navigationService,
       required this.userService,
       required this.mapper})
-      : super(key: key, showAppBar: false);
+      : super(key: key, showAppBar: false, navigationService: navigationService);
 
   Widget _getSignInTabContent(BuildContext context) {
     return Column(

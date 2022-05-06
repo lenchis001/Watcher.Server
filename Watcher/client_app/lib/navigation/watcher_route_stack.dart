@@ -19,21 +19,18 @@ class WatcherRouteStack {
 
   final navigationHistory = List<WatcherRoutePart>.empty(growable: true);
 
-  WatcherRouteStack.defaultStack({
-    required this.navigationService,
-    required this.userService,
-    required this.mapper
-  }) {
+  WatcherRouteStack.defaultStack(
+      {required this.navigationService,
+      required this.userService,
+      required this.mapper}) {
     navigationHistory.add(WatcherRoutePart.signIn());
-
   }
 
-  WatcherRouteStack.fromPathSegments({
-    required this.navigationService,
-    required this.userService,
-    required this.mapper,
-    required List<String> pathSegments
-  }) {
+  WatcherRouteStack.fromPathSegments(
+      {required this.navigationService,
+      required this.userService,
+      required this.mapper,
+      required List<String> pathSegments}) {
     if (pathSegments.isEmpty) {
       navigationHistory.add(WatcherRoutePart.signIn());
     } else {
@@ -59,25 +56,31 @@ class WatcherRouteStack {
   List<MaterialPage> toPages() {
     return navigationHistory
         .map<MaterialPage>((e) => e.map(
-            home: (_) => const MaterialPage(child: HomeScreen()),
-            signIn: (_) => MaterialPage(child: SignInScreen(
-              navigationService: navigationService,
-              userService: userService,
-              mapper: mapper,
-            )),
-            unknown: (_) => const MaterialPage(child: HomeScreen()),
-            addTest: (_) => const MaterialPage(child: AddTest())))
+            home: (_) => MaterialPage(
+                    child: HomeScreen(
+                  navigationService: navigationService,
+                )),
+            signIn: (_) => MaterialPage(
+                    child: SignInScreen(
+                  navigationService: navigationService,
+                  userService: userService,
+                  mapper: mapper,
+                )),
+            unknown: (_) => MaterialPage(
+                child: HomeScreen(navigationService: navigationService)),
+            addTest: (_) => MaterialPage(
+                child: AddTest(navigationService: navigationService))))
         .toList();
   }
 
   RouteInformation toRouteInformation() {
-    final location = navigationHistory.map((e) => e.map(
-        home: (_) => _homeSegmentName,
-        signIn: (_) => _signInSegmentName,
-        unknown: (_) => _unknownSegmentName,
-        addTest: (_) => _addTestSegmentName
-    )
-    ).join('/');
+    final location = navigationHistory
+        .map((e) => e.map(
+            home: (_) => _homeSegmentName,
+            signIn: (_) => _signInSegmentName,
+            unknown: (_) => _unknownSegmentName,
+            addTest: (_) => _addTestSegmentName))
+        .join('/');
 
     return RouteInformation(location: location);
   }

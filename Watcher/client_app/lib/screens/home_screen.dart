@@ -1,10 +1,14 @@
 import 'package:client_app/components/panel.dart';
+import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/screens/base_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends BasePage {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+    required INavigationService navigationService
+  }) : super(key: key, navigationService: navigationService);
 
   @override
   Widget buildPage(BuildContext context) {

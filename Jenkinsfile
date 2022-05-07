@@ -3,7 +3,7 @@ pipeline {
    stages {
         stage ('Watcher.Server - Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'bd77fbbe-d091-4d05-99bf-995f9c3bea79', url: 'git@github.com:lenchis001/Watcher.git']]]) 
+                checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'bd77fbbe-d091-4d05-99bf-995f9c3bea79', url: 'git@github.com:lenchis001/Watcher.Server.git']]]) 
             }
         }
         stage ("Build image") {

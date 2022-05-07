@@ -1,20 +1,27 @@
-export 'models/user/sign_in.dart';
-export 'models/user/add_user.dart';
-export 'models/user/user.dart';
-export 'models/default_processing_result.dart';
-export 'models/error_code.dart';
+export 'package:watcher_client_bll/models/user/sign_in.dart';
+export 'package:watcher_client_bll/models/user/add_user.dart';
+export 'package:watcher_client_bll/models/user/user.dart';
+export 'package:watcher_client_bll/models/default_processing_result.dart';
+export 'package:watcher_client_bll/models/error_code.dart';
+export 'package:watcher_client_bll/models/test/add_test.dart';
+export 'package:watcher_client_bll/models/test/test.dart';
 export 'package:watcher_client_bll/services/user/iuser_service.dart';
+export 'package:watcher_client_bll/services/test/itest_service.dart';
 
 import 'package:automap/automap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:watcher_client_bll/models/default_processing_result.dart';
 import 'package:watcher_client_bll/models/error_code.dart';
+import 'package:watcher_client_bll/models/test/test.dart';
+import 'package:watcher_client_bll/services/test/itest_service.dart';
+import 'package:watcher_client_bll/services/test/test_service.dart';
 import 'package:watcher_client_bll/services/user/iuser_service.dart';
 import 'package:watcher_client_bll/services/user/user_service.dart';
-import 'package:watcher_client_dal/watcher_client_dal.dart' as wcd;
+import 'package:watcher_client_bll/models/test/add_test.dart';
+import 'package:watcher_client_bll/models/user/add_user.dart';
+import 'package:watcher_client_bll/models/user/sign_in.dart';
 
-import 'models/user/add_user.dart';
-import 'models/user/sign_in.dart';
+import 'package:watcher_client_dal/watcher_client_dal.dart' as wcd;
 
 class Facade {
   static void setupDependencies(GetIt container) {
@@ -24,12 +31,17 @@ class Facade {
         userApiService: container.get(),
         mapper: container.get()
     ));
+
+    container.registerSingleton<ITestService>(TestService(
+        apiService: container.get(),
+        mapper: container.get()
+    ));
   }
 
   static void setupMappings(AutoMapper mapper) {
     mapper
       ..addManualMap<SignIn, wcd.SignIn>((source, mapper, params) =>
-          wcd.SignIn(email: source.Email, password: source.Password))
+          wcd.SignIn(email: source.email, password: source.password))
       ..addManualMap<wcd.ErrorCode, ErrorCode>((source, mapper, params) {
           switch(source) {
             case wcd.ErrorCode.OK:
@@ -43,7 +55,18 @@ class Facade {
       ..addManualMap<wcd.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
           DefaultProcessingResult(errorCode: mapper.map<wcd.ErrorCode, ErrorCode>(source.errorCode)))
       ..addManualMap<AddUser, wcd.AddUser>((source, mapper, params) =>
-          wcd.AddUser(email: source.Email, password: source.Password));
+          wcd.AddUser(email: source.email, password: source.password))
+      ..addManualMap<wcd.Test, Test>((source, mapper, params) => Test(
+          id: source.id,
+          name: source.name,
+          script: source.script,
+          cron: source.cron
+      ))
+    ..addManualMap<wcd.AddTest, AddTest>((source, mapper, params) => AddTest(
+      name: source.name,
+      script: source.script,
+      cron: source.cron
+    ));
 
     wcd.Facade.setupMappings(mapper);
   }

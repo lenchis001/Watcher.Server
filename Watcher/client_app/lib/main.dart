@@ -6,11 +6,13 @@ import 'package:client_app/navigation/watcher_route_information_parser.dart';
 import 'package:client_app/navigation/watcher_router_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
+import 'package:client_app/models/default_processing_result.dart';
+import 'package:client_app/models/error_code.dart';
+import 'package:client_app/models/test/add_test.dart';
+import 'package:client_app/models/test/test.dart';
+import 'package:client_app/models/user/add_user.dart';
 
-import 'models/default_processing_result.dart';
-import 'models/error_code.dart';
-import 'models/user/add_user.dart';
+import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
 void main() {
   var container = GetIt.asNewInstance();
@@ -30,11 +32,13 @@ void setupDependencies(GetIt container) {
   container.registerSingleton(WatcherRouteInformationParser(
       navigationService: container.get(),
       userService: container.get(),
+      testService: container.get(),
       mapper: container.get()
   ));
   container.registerSingleton(WatcherRouterDelegate(
     navigationService: container.get(),
     userService: container.get(),
+    testService: container.get(),
     mapper: container.get()
   ));
 }
@@ -44,7 +48,7 @@ void setupMappings(GetIt container) {
 
   final mapper = container.get<AutoMapper>();
   mapper
-    ..addManualMap<SignIn, wcb.SignIn>((source, mapper, params) => wcb.SignIn(source.Email, source.Password))
+    ..addManualMap<SignIn, wcb.SignIn>((source, mapper, params) => wcb.SignIn(source.email, source.password))
     ..addManualMap<wcb.ErrorCode, ErrorCode>((source, mapper, params) {
       switch(source) {
         case wcb.ErrorCode.OK:
@@ -58,7 +62,17 @@ void setupMappings(GetIt container) {
     ..addManualMap<wcb.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
         DefaultProcessingResult(errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode)))
     ..addManualMap<AddUser, wcb.AddUser>((source, mapper, params) =>
-        wcb.AddUser(source.Email, source.Password));
+        wcb.AddUser(source.email, source.password))..addManualMap<wcb.Test, Test>((source, mapper, params) => Test(
+      id: source.id,
+      name: source.name,
+      script: source.script,
+      cron: source.cron
+  ))
+    ..addManualMap<wcb.AddTest, AddTest>((source, mapper, params) => AddTest(
+        name: source.name,
+        script: source.script,
+        cron: source.cron
+    ));
 
   wcb.Facade.setupMappings(container.get());
 }

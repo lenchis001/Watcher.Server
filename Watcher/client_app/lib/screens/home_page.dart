@@ -1,13 +1,16 @@
 import 'package:client_app/components/panel.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/screens/base_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
-class HomeScreen extends BasePage {
-  const HomeScreen({
+class HomePage extends BasePage {
+  final wcb.ITestService testService;
+
+  const HomePage({
     Key? key,
-    required INavigationService navigationService
+    required INavigationService navigationService,
+    required this.testService
   }) : super(key: key, navigationService: navigationService);
 
   @override

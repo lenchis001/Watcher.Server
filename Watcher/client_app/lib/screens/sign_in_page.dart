@@ -10,7 +10,7 @@ import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
 import 'base_page.dart';
 
-class SignInScreen extends BasePage {
+class SignInPage extends BasePage {
   final wcb.IUserService userService;
   final AutoMapper mapper;
 
@@ -19,7 +19,7 @@ class SignInScreen extends BasePage {
       _signUpEmail = '',
       _signUpPassword = '';
 
-  SignInScreen(
+  SignInPage(
       {Key? key,
       required INavigationService navigationService,
       required this.userService,

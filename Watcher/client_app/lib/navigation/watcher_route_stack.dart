@@ -1,8 +1,8 @@
 import 'package:automap/automap.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
-import 'package:client_app/screens/add_test.dart';
-import 'package:client_app/screens/home_screen.dart';
-import 'package:client_app/screens/sign_in_screen.dart';
+import 'package:client_app/screens/add_test_page.dart';
+import 'package:client_app/screens/home_page.dart';
+import 'package:client_app/screens/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:watcher_client_bll/watcher_client_bll.dart';
 import 'watcher_route_part.dart';
@@ -10,6 +10,7 @@ import 'watcher_route_part.dart';
 class WatcherRouteStack {
   final INavigationService navigationService;
   final IUserService userService;
+  final ITestService testService;
   final AutoMapper mapper;
 
   static const String _homeSegmentName = 'home';
@@ -22,7 +23,8 @@ class WatcherRouteStack {
   WatcherRouteStack.defaultStack(
       {required this.navigationService,
       required this.userService,
-      required this.mapper}) {
+      required this.mapper,
+      required this.testService}) {
     navigationHistory.add(WatcherRoutePart.signIn());
   }
 
@@ -30,6 +32,7 @@ class WatcherRouteStack {
       {required this.navigationService,
       required this.userService,
       required this.mapper,
+      required this.testService,
       required List<String> pathSegments}) {
     if (pathSegments.isEmpty) {
       navigationHistory.add(WatcherRoutePart.signIn());
@@ -57,19 +60,22 @@ class WatcherRouteStack {
     return navigationHistory
         .map<MaterialPage>((e) => e.map(
             home: (_) => MaterialPage(
-                    child: HomeScreen(
+                    child: HomePage(
                   navigationService: navigationService,
+                  testService: testService,
                 )),
             signIn: (_) => MaterialPage(
-                    child: SignInScreen(
+                    child: SignInPage(
                   navigationService: navigationService,
                   userService: userService,
                   mapper: mapper,
                 )),
             unknown: (_) => MaterialPage(
-                child: HomeScreen(navigationService: navigationService)),
+                child: HomePage(
+                    navigationService: navigationService,
+                    testService: testService)),
             addTest: (_) => MaterialPage(
-                child: AddTest(navigationService: navigationService))))
+                child: AddTestPage(navigationService: navigationService))))
         .toList();
   }
 

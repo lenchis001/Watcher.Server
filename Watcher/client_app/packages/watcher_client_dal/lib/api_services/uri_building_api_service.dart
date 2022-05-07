@@ -7,4 +7,7 @@ class UriBuildingService extends IUriBuildingService {
 
   @override
   Uri get userApiSignInUri => userApiUri.resolve('/${userApiUri.pathSegments.join('/')}/signIn');
+
+  @override
+  Uri get testApiUri => Uri.parse('$_baseUri/test');
 }

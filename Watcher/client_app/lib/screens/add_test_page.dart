@@ -3,8 +3,8 @@ import 'package:client_app/screens/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:code_editor/code_editor.dart';
 
-class AddTest extends BasePage {
-  const AddTest({
+class AddTestPage extends BasePage {
+  const AddTestPage({
     Key? key,
     required INavigationService navigationService
   }) : super(key: key, navigationService: navigationService);
@@ -18,7 +18,10 @@ class AddTest extends BasePage {
             color: Colors.white70),
         padding: const EdgeInsets.all(40),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('Add new test'),
+          const Text('Name'),
+          const TextField(),
+          const SizedBox(height: 16),
+          const Text('Cron'),
           const TextField(),
           const SizedBox(height: 16),
           const Text('Code'),

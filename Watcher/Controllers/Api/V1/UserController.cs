@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Watcher.Controllers.Api.V1.Dashboard
 {
-	[Route("api/v1/dashboard/[controller]")]
+	[Route("api/v1/[controller]")]
 	[ApiController]
 	public class UserController : ControllerBase
 	{

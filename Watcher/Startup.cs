@@ -38,7 +38,7 @@ namespace Watcher
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
 			{
-				configuration.RootPath = "client_app/build/web";
+				configuration.RootPath = "client_app/";
 			});
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -59,6 +59,11 @@ namespace Watcher
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseCors(policy =>
+				{
+					policy.AllowAnyOrigin();
+					policy.AllowAnyHeader();
+				});
 			}
 			else
 			{

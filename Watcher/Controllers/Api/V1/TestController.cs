@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Watcher.Controllers.Api.V1.Dashboard.BeautySalon
 {
-	[Route("api/v1/dashboard/[controller]")]
+	[Route("api/v1/[controller]")]
 	[ApiController]
 	[Authorize(Roles = "SalonAdmin")]
 	public class TestController : ControllerBase

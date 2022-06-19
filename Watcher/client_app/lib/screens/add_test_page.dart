@@ -34,7 +34,9 @@ class AddTestPage extends BasePage {
           const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerRight,
-            child: ElevatedButton(onPressed: () {}, child: const Text('Add')),
+            child: ElevatedButton(onPressed: () {
+
+            }, child: const Text('Add')),
           )
         ])
       )

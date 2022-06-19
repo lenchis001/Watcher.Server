@@ -27,9 +27,15 @@
     <None Remove="Models\v1\Users\" />
     <None Remove="Microsoft.ClearScript.V8" />
     <None Remove="Microsoft.ClearScript.osx-x64" />
+    <None Remove="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\v1\Tests\" />
     <Folder Include="Models\v1\Users\" />
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="client_app\build\flutter_assets\AssetManifest.json" />
+    <Content Remove="client_app\build\flutter_assets\FontManifest.json" />
   </ItemGroup>
 </Project>

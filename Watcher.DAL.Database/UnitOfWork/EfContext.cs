@@ -51,7 +51,7 @@ namespace Watcher.DAL.Database.UnitOfWork
 			optionsBuilder.UseMySql("server=localhost;port=3308;database=watcher;UserId=root;Password=Boost2017;CharSet=utf8");
 #else
 			var serverAddress = System.Environment.GetEnvironmentVariable("DATABASE_SERVER_ADDRESS");
-			optionsBuilder.UseMySql($"server={serverAddress};database=watcher;UserId=root;Password=grippolek2022;CharSet=utf8");
+			optionsBuilder.UseMySql($"server={serverAddress};database=watcher;UserId=root;Password=Boost2017;CharSet=utf8");
 #endif
 		}
 	}

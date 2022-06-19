@@ -58,6 +58,11 @@ namespace Watcher
 		{
 			if (env.IsDevelopment())
 			{
+				app.Use(async (context, next) =>
+				{
+
+					await next();
+				});
 				app.UseDeveloperExceptionPage();
 				app.UseCors(policy =>
 				{
@@ -70,8 +75,8 @@ namespace Watcher
 				app.UseExceptionHandler("/Error");
 			}
 
-			app.UseStaticFiles();
-			app.UseSpaStaticFiles();
+			//app.UseStaticFiles();
+			//app.UseSpaStaticFiles();
 
 			app.UseRouting();
 
@@ -88,10 +93,10 @@ namespace Watcher
 					.AllowAnonymous();
 			});
 
-			app.UseSpa(spa =>
-			{
-				spa.Options.SourcePath = "client_app";
-			});
+			//app.UseSpa(spa =>
+			//{
+			//	spa.Options.SourcePath = "client_app";
+			//});
 		}
 
 		public void ConfigureContainer(IUnityContainer container)

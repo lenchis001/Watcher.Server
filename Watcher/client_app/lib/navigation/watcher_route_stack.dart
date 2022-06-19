@@ -63,6 +63,7 @@ class WatcherRouteStack {
                     child: HomePage(
                   navigationService: navigationService,
                   testService: testService,
+                  mapper: mapper,
                 )),
             signIn: (_) => MaterialPage(
                     child: SignInPage(
@@ -71,9 +72,11 @@ class WatcherRouteStack {
                   mapper: mapper,
                 )),
             unknown: (_) => MaterialPage(
-                child: HomePage(
-                    navigationService: navigationService,
-                    testService: testService)),
+                    child: HomePage(
+                  navigationService: navigationService,
+                  testService: testService,
+                  mapper: mapper,
+                )),
             addTest: (_) => MaterialPage(
                 child: AddTestPage(navigationService: navigationService))))
         .toList();

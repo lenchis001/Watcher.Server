@@ -62,6 +62,7 @@ class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack>
         }
 
         currentConfiguration.navigationHistory.removeLast();
+        notifyListeners();
 
         return true;
       },
@@ -70,6 +71,7 @@ class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack>
 
   @override
   Future<bool> popRoute() {
+    print('On back requested');
     // TODO: implement popRoute
     throw UnimplementedError();
   }

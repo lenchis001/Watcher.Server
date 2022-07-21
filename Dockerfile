@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR /
 RUN apt-get update && apt-get install git unzip -y
 RUN curl -OL https://github.com/fluttertools/fvm/releases/download/2.3.1/fvm-2.3.1-linux-x64.tar.gz && tar -xf fvm-2.3.1-linux-x64.tar.gz && rm fvm-2.3.1-linux-x64.tar.gz && cd fvm && mv * /bin
-RUN fvm install 2.8.1
+RUN fvm install 3.0.0
 WORKDIR /src
 COPY . .
 WORKDIR "/src/Watcher"

@@ -9,6 +9,7 @@ class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack>
   final INavigationService navigationService;
   final IUserService userService;
   final ITestService testService;
+  final ITestExecutionService testExecutionService;
   final AutoMapper mapper;
 
   WatcherRouteStack? _currentConfiguration;
@@ -20,17 +21,20 @@ class WatcherRouterDelegate extends RouterDelegate<WatcherRouteStack>
           navigationService: navigationService,
           userService: userService,
           testService: testService,
+          testExecutionService: testExecutionService,
           mapper: mapper);
 
   WatcherRouterDelegate(
       {required this.navigationService,
       required this.userService,
       required this.testService,
+        required this.testExecutionService,
       required this.mapper}) {
     _currentConfiguration = WatcherRouteStack.defaultStack(
         navigationService: navigationService,
         userService: userService,
         testService: testService,
+        testExecutionService: testExecutionService,
         mapper: mapper);
     navigationService.navigationEvent.subscribe((args) {
       if (args == null) return;

@@ -1,5 +1,4 @@
 import 'package:automap/automap.dart';
-import 'package:client_app/components/panel.dart';
 import 'package:client_app/components/refreshable_panel/refreshable_panel.dart';
 import 'package:client_app/components/refreshable_panel/test_refreshable_panel_state.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
@@ -9,12 +8,14 @@ import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
 class HomePage extends BasePage {
   final wcb.ITestService testService;
+  final wcb.ITestExecutionService testExecutionService;
   final AutoMapper mapper;
 
   const HomePage({
     Key? key,
     required INavigationService navigationService,
     required this.testService,
+    required this.testExecutionService,
     required this.mapper
   }) : super(key: key, navigationService: navigationService);
 
@@ -26,9 +27,9 @@ class HomePage extends BasePage {
           RefreshablePanel(
             key: GlobalKey(),
               header: "Tests" ,
-              width: 480,
-              height: 256,
-              state: TestRefreshablePanelState(testService: testService, mapper: mapper),
+              width: 560,
+              height: 320,
+              state: TestRefreshablePanelState(testService: testService, mapper: mapper, testExecutionService: testExecutionService),
               )
         ],)
       ],

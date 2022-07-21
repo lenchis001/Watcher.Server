@@ -1,15 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Taskus" Version="0.0.5" />
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="Quartz" Version="3.3.3" />
-    <PackageReference Include="Microsoft.ClearScript.V8" Version="7.2.3" />
+    <PackageReference Include="Quartz" Version="3.4.0" />
+    <PackageReference Include="Microsoft.ClearScript.osx-x64" Version="7.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +45,8 @@
     <None Remove="Models\TestExecutions\" />
     <None Remove="Models\Notificators\" />
     <None Remove="Models\Notificatorindings\" />
+    <None Remove="Microsoft.ClearScript.V8.Native.osx-x64" />
+    <None Remove="Microsoft.ClearScript.osx-x64" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Jobs\" />

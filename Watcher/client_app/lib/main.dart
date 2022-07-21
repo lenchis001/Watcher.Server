@@ -15,6 +15,8 @@ import 'package:client_app/models/user/add_user.dart';
 
 import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
+import 'models/test_execution/test_execution.dart';
+
 void main() {
   var container = GetIt.asNewInstance();
   setupDependencies(container);
@@ -33,12 +35,14 @@ void setupDependencies(GetIt container) {
       navigationService: container.get(),
       userService: container.get(),
       testService: container.get(),
+      testExecutionService: container.get(),
       mapper: container.get()));
   container.registerSingleton(WatcherRouterDelegate(
       navigationService: container.get(),
       userService: container.get(),
       testService: container.get(),
-      mapper: container.get()));
+      mapper: container.get(),
+  testExecutionService: container.get()));
 }
 
 void setupMappings(GetIt container) {
@@ -64,21 +68,37 @@ void setupMappings(GetIt container) {
             errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode)))
     ..addManualMap<AddUser, wcb.AddUser>(
         (source, mapper, params) => wcb.AddUser(source.email, source.password))
-    ..addManualMap<wcb.AddTest, AddTest>((source, mapper, params) =>
-        AddTest(name: source.name, script: source.script, cron: source.cron))
+    ..addManualMap<AddTest, wcb.AddTest>((source, mapper, params) =>
+        wcb.AddTest(name: source.name, script: source.script, cron: source.cron))
     ..addManualMap<wcb.Test, Test>((source, mapper, params) => Test(
-          id: source.id,
-          name: source.name,
-          script: source.script,
-          cron: source.cron,
-        ))
+      id: source.id,
+      name: source.name,
+      script: source.script,
+      cron: source.cron,
+    ))
     ..addManualMap<wcb.DefaultDataProcessingResult<List<wcb.Test>>,
-            DefaultDataProcessingResult<List<Test>>>(
-        (source, mapper, params) => DefaultDataProcessingResult<List<Test>>(
+        DefaultDataProcessingResult<List<Test>>>(
+            (source, mapper, params) => DefaultDataProcessingResult<List<Test>>(
             errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode),
             data: source.data == null
                 ? null
                 : source.data!
-                    .map((value) => mapper.map<wcb.Test, Test>(value))
-                    .toList()));
+                .map((value) => mapper.map<wcb.Test, Test>(value))
+                .toList()))
+    ..addManualMap<wcb.TestExecution, TestExecution>((source, mapper, params) => TestExecution(
+      id: source.id,
+      isSuccessful: source.isSuccessful,
+      log: source.log,
+      testId: source.testId,
+      dateTime: source.dateTime,
+    ))
+    ..addManualMap<wcb.DefaultDataProcessingResult<List<wcb.TestExecution>>,
+        DefaultDataProcessingResult<List<TestExecution>>>(
+            (source, mapper, params) => DefaultDataProcessingResult<List<TestExecution>>(
+            errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode),
+            data: source.data == null
+                ? null
+                : source.data!
+                .map((value) => mapper.map<wcb.TestExecution, TestExecution>(value))
+                .toList()));
 }

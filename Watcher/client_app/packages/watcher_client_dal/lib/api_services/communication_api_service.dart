@@ -22,35 +22,33 @@ class CommunicationService extends ICommunicationService {
   @override
   Future<DefaultProcessingResult> makePost<TReq extends IToJsonAware>({
     required Uri uri,
-    required TReq data,
-    bool tryInsertAuthToken = true,
-    bool tryReadAuthToken = false
+    required TReq data
   }) async {
     final headers = <String, String>{};
-    if(tryInsertAuthToken && await authenticationRepository.areAuthenticationDataSaved) {
-      headers.addAll(await this.authenticationRepository.pullAuthenticationData());
-    }
+    // if(tryInsertAuthToken && await authenticationRepository.areAuthenticationDataSaved) {
+    //   headers.addAll(await this.authenticationRepository.pullAuthenticationData());
+    // }
 
     final response = await _client.post(uri.toString(),
         data: jsonEncode(data.toJson()),
         options: Options(method: 'POST', contentType: 'application/json', headers: headers));
 
-    if(tryReadAuthToken && response.statusCode == 200) {
-      await authenticationRepository.clear();
-
-      // if(response.headers.containsKey('set-cookie')) {
-      //   await authenticationRepository.putAuthenticationData(<String, String> {
-      //     'cookie': response.headers['set-cookie']!
-      //   });
-      // }
-    }
+    // if(tryReadAuthToken && response.statusCode == 200) {
+    //   await authenticationRepository.clear();
+    //
+    //   // if(response.headers.containsKey('set-cookie')) {
+    //   //   await authenticationRepository.putAuthenticationData(<String, String> {
+    //   //     'cookie': response.headers['set-cookie']!
+    //   //   });
+    //   // }
+    // }
 
     return DefaultProcessingResult(
         errorCode: _fromStatusCode(response.statusCode ?? -1));
   }
 
   @override
-  Future<DefaultDataProcessingResult<TRes>> makeGet<TRes>({ required Uri uri, bool tryInsertAuthToken = true }) async {
+  Future<DefaultDataProcessingResult<TRes>> makeGet<TRes>({ required Uri uri }) async {
     final headers = <String, String>{'Content-Type': 'application/json'};
 
     final response = await _client.get(uri.toString(), options: Options(method: 'GET', headers: headers));
@@ -71,5 +69,14 @@ class CommunicationService extends ICommunicationService {
       default:
         return ErrorCode.UNKNOWN;
     }
+  }
+
+  @override
+  Future<DefaultProcessingResult> makeDelete({required Uri uri, required int id }) async {
+    final response = await _client.delete('${uri}/$id');
+
+    return DefaultProcessingResult(
+        errorCode: _fromStatusCode(response.statusCode ?? -1)
+    );
   }
 }

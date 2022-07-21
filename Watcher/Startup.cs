@@ -165,6 +165,19 @@ namespace Watcher
 						ICollection<Models.v1.Tests.Test>
 					>
 				>();
+
+			// Test Executions
+			mapperConfiguration.CreateMap<BLL.Models.TestExecutions.TestExecution, Models.v1.TestExecutions.TestExecution>()
+				.ReverseMap();
+			mapperConfiguration.CreateMap<
+				BLL.Models.DefaultDataFetchResult<ICollection<BLL.Models.TestExecutions.TestExecution>>,
+				ActionResult<ICollection<Models.v1.TestExecutions.TestExecution>>>()
+				.ConvertUsing<
+					Converters.DefaultDataFetchResultToActionResult<
+						ICollection<BLL.Models.TestExecutions.TestExecution>,
+						ICollection<Models.v1.TestExecutions.TestExecution>
+					>
+				>();
 		}
 	}
 }

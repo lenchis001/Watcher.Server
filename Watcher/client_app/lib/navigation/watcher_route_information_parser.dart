@@ -9,12 +9,14 @@ class WatcherRouteInformationParser extends RouteInformationParser<WatcherRouteS
   final IUserService userService;
   final AutoMapper mapper;
   final ITestService testService;
+  final ITestExecutionService testExecutionService;
 
   WatcherRouteInformationParser({
     required this.navigationService,
     required this.userService,
     required this.mapper,
-    required this.testService
+    required this.testService,
+    required this.testExecutionService
   });
 
   @override
@@ -26,7 +28,8 @@ class WatcherRouteInformationParser extends RouteInformationParser<WatcherRouteS
             userService: userService,
             mapper: mapper,
             testService: testService,
-            pathSegments: uri.pathSegments
+            pathSegments: uri.pathSegments,
+            testExecutionService: testExecutionService
         )
     );
   }

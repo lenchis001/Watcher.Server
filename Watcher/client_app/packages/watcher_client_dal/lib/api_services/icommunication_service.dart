@@ -5,9 +5,10 @@ import 'package:watcher_client_dal/models/ito_json_aware.dart';
 abstract class ICommunicationService {
   Future<DefaultProcessingResult> makePost<TReq extends IToJsonAware>({
     required Uri uri,
-    required TReq data,
-    bool tryInsertAuthToken = true,
-    bool tryReadAuthToken = false
+    required TReq data
   });
-  Future<DefaultDataProcessingResult<TRes>> makeGet<TRes>({ required Uri uri, bool tryInsertAuthToken = true });
+
+  Future<DefaultDataProcessingResult<TRes>> makeGet<TRes>({ required Uri uri });
+
+  Future<DefaultProcessingResult> makeDelete({ required Uri uri, required int id });
 }

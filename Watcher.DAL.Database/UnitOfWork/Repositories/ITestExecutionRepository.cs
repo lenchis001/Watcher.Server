@@ -9,5 +9,6 @@ namespace Watcher.DAL.Database.UnitOfWork.Repositories
 	{
 		Task<ICollection<TestExecution>> GetAllAsync(int testId);
         Task<ICollection<TestExecution>> GetLastTwoAsync(int testId);
+        Task<ICollection<TestExecution>> GetLatestAsync(int userId);
     }
 }

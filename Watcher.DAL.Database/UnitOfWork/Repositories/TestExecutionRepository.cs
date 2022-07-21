@@ -34,5 +34,17 @@ namespace Watcher.DAL.Database.UnitOfWork.Repositories
 					.ToArrayAsync();
 			}
 		}
+
+        public async Task<ICollection<TestExecution>> GetLatestAsync(int userId)
+		{
+			using (var context = new EfContext())
+			{
+				return await context
+					.TestExecutions
+					.FromSqlRaw("SELECT te.Id, te.DateTime, te.Log, te.IsSuccessful, te.TestId FROM watcher.TestExecutions te inner join(SELECT TestId, MAX(DateTime) as DateTime FROM watcher.TestExecutions GROUP BY TestId) j ON te.TestId = j.TestId AND te.DateTime = j.DateTime;")
+					.AsNoTracking()
+					.ToArrayAsync();
+			}
+		}
     }
 }

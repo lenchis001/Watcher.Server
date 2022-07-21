@@ -3,6 +3,7 @@ export 'package:watcher_client_dal/models/user/add_user.dart';
 export 'package:watcher_client_dal/models/user/user.dart';
 export 'package:watcher_client_dal/models/test/test.dart';
 export 'package:watcher_client_dal/models/test/add_test.dart';
+export 'package:watcher_client_dal/models/test_execution/test_execution.dart';
 export 'package:watcher_client_dal/models/default_processing_result.dart';
 export 'package:watcher_client_dal/models/default_data_processing_result.dart';
 export 'package:watcher_client_dal/models/error_code.dart';
@@ -10,17 +11,21 @@ export 'package:watcher_client_dal/models/error_code.dart';
 export 'package:watcher_client_dal/api_services/icrud_api_service.dart';
 export 'package:watcher_client_dal/api_services/iuser_api_service.dart';
 export 'package:watcher_client_dal/api_services/itest_api_service.dart';
+export 'package:watcher_client_dal/api_services/itest_execution_api_service.dart';
 
 import 'package:automap/automap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:watcher_client_dal/api_services/itest_api_service.dart';
 import 'package:watcher_client_dal/api_services/communication_api_service.dart';
 import 'package:watcher_client_dal/api_services/icommunication_service.dart';
+import 'package:watcher_client_dal/api_services/itest_execution_api_service.dart';
 import 'package:watcher_client_dal/api_services/iuri_building_service.dart';
 import 'package:watcher_client_dal/api_services/iuser_api_service.dart';
 import 'package:watcher_client_dal/api_services/test_api_service.dart';
+import 'package:watcher_client_dal/api_services/test_execution_api_service.dart';
 import 'package:watcher_client_dal/api_services/uri_building_api_service.dart';
 import 'package:watcher_client_dal/api_services/user_api_service.dart';
+import 'package:watcher_client_dal/models/test_execution/test_execution.dart';
 import 'package:watcher_client_dal/repositories/iauthentication_repository.dart';
 import 'package:watcher_client_dal/repositories/authentication_repository.dart';
 
@@ -41,6 +46,11 @@ class Facade {
         uriBuildingService: container.get())
     );
 
+    container.registerLazySingleton<ITestExecutionApiService>(() => TestExecutionApiService(
+        communicationService: container.get(),
+        uriBuildingService: container.get())
+    );
+
     container.registerLazySingleton<IAuthenticationRepository>(() => AuthenticationRepository());
   }
 
@@ -51,6 +61,16 @@ class Facade {
         if(source is List) {
           return source.map((e) {
             return Test.fromJson(e);
+          }).toList(growable: false);
+        }
+
+        throw Exception('List<dynamic> expected but gut ${source.runtimeType}');
+      })
+      ..addManualMap<dynamic, List<TestExecution>>((source, mapper, params)
+      {
+        if(source is List) {
+          return source.map((e) {
+            return TestExecution.fromJson(e);
           }).toList(growable: false);
         }
 

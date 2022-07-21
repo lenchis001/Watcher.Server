@@ -10,4 +10,7 @@ class UriBuildingService extends IUriBuildingService {
 
   @override
   Uri get testApiUri => Uri.parse('$_baseUri/test');
+
+  @override
+  Uri get testExecutionLatestApiUri => Uri.parse('$_baseUri/testExecution');
 }

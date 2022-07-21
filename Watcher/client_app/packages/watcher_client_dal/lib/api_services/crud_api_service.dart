@@ -20,8 +20,7 @@ class CrudApiService<T extends IToJsonAware, AT extends IToJsonAware> extends IC
 
   @override
   Future<DefaultProcessingResult> delete(int id) {
-    throw Error();
-    //return communicationService.makeDelete(uri, value);
+    return communicationService.makeDelete(uri: uri, id: id);
   }
 
   @override

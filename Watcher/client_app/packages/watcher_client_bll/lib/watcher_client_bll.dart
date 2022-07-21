@@ -6,8 +6,10 @@ export 'package:watcher_client_bll/models/default_data_processing_result.dart';
 export 'package:watcher_client_bll/models/error_code.dart';
 export 'package:watcher_client_bll/models/test/add_test.dart';
 export 'package:watcher_client_bll/models/test/test.dart';
+export 'package:watcher_client_bll/models/test_execution/test_execution.dart';
 export 'package:watcher_client_bll/services/user/iuser_service.dart';
 export 'package:watcher_client_bll/services/test/itest_service.dart';
+export 'package:watcher_client_bll/services/test_execution/itest_execution_service.dart';
 
 import 'package:automap/automap.dart';
 import 'package:get_it/get_it.dart';
@@ -15,8 +17,11 @@ import 'package:watcher_client_bll/models/default_data_processing_result.dart';
 import 'package:watcher_client_bll/models/default_processing_result.dart';
 import 'package:watcher_client_bll/models/error_code.dart';
 import 'package:watcher_client_bll/models/test/test.dart';
+import 'package:watcher_client_bll/models/test_execution/test_execution.dart';
 import 'package:watcher_client_bll/services/test/itest_service.dart';
 import 'package:watcher_client_bll/services/test/test_service.dart';
+import 'package:watcher_client_bll/services/test_execution/itest_execution_service.dart';
+import 'package:watcher_client_bll/services/test_execution/test_execution_service.dart';
 import 'package:watcher_client_bll/services/user/iuser_service.dart';
 import 'package:watcher_client_bll/services/user/user_service.dart';
 import 'package:watcher_client_bll/models/test/add_test.dart';
@@ -29,11 +34,13 @@ class Facade {
   static void setupDependencies(GetIt container) {
     wcd.Facade.setupDependencies(container);
 
-    container.registerSingleton<IUserService>(
-        UserService(userApiService: container.get(), mapper: container.get()));
-
-    container.registerSingleton<ITestService>(
-        TestService(apiService: container.get(), mapper: container.get()));
+    container
+      ..registerSingleton<IUserService>(
+          UserService(userApiService: container.get(), mapper: container.get()))
+      ..registerSingleton<ITestService>(
+          TestService(apiService: container.get(), mapper: container.get()))
+      ..registerSingleton<ITestExecutionService>(TestExecutionService(
+          apiService: container.get(), mapper: container.get()));
   }
 
   static void setupMappings(AutoMapper mapper) {
@@ -58,8 +65,8 @@ class Facade {
                   mapper.map<wcd.ErrorCode, ErrorCode>(source.errorCode)))
       ..addManualMap<AddUser, wcd.AddUser>((source, mapper, params) =>
           wcd.AddUser(email: source.email, password: source.password))
-      ..addManualMap<wcd.AddTest, AddTest>((source, mapper, params) =>
-          AddTest(name: source.name, script: source.script, cron: source.cron))
+      ..addManualMap<AddTest, wcd.AddTest>((source, mapper, params) =>
+          wcd.AddTest(name: source.name, script: source.script, cron: source.cron))
       ..addManualMap<wcd.Test, Test>((source, mapper, params) => Test(
             id: source.id,
             name: source.name,
@@ -74,6 +81,25 @@ class Facade {
                   ? null
                   : source.data!
                       .map((value) => mapper.map<wcd.Test, Test>(value))
+                      .toList()))
+      ..addManualMap<wcd.TestExecution, TestExecution>(
+          (source, mapper, params) => TestExecution(
+                id: source.id,
+                dateTime: source.dateTime,
+                log: source.log,
+                testId: source.testId,
+                isSuccessful: source.isSuccessful
+              ))
+      ..addManualMap<wcd.DefaultDataProcessingResult<List<wcd.TestExecution>>,
+          DefaultDataProcessingResult<List<TestExecution>>>((source, mapper,
+              params) =>
+          DefaultDataProcessingResult<List<TestExecution>>(
+              errorCode: mapper.map<wcd.ErrorCode, ErrorCode>(source.errorCode),
+              data: source.data == null
+                  ? null
+                  : source.data!
+                      .map((value) =>
+                          mapper.map<wcd.TestExecution, TestExecution>(value))
                       .toList()));
   }
 }

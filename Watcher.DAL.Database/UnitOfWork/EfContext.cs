@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Watcher.DAL.Database.Models;
 
 namespace Watcher.DAL.Database.UnitOfWork
@@ -47,8 +48,9 @@ namespace Watcher.DAL.Database.UnitOfWork
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
+			var serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
 #if DEBUG
-			optionsBuilder.UseMySql("server=localhost;port=3308;database=watcher;UserId=root;Password=Boost2017;CharSet=utf8");
+			optionsBuilder.UseMySql("server=localhost;port=3308;database=watcher;UserId=root;Password=Boost2017;CharSet=utf8", serverVersion);
 #else
 			var serverAddress = System.Environment.GetEnvironmentVariable("DATABASE_SERVER_ADDRESS");
 			optionsBuilder.UseMySql($"server={serverAddress};database=watcher;UserId=root;Password=Boost2017;CharSet=utf8");

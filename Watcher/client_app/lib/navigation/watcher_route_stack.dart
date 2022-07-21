@@ -11,6 +11,7 @@ class WatcherRouteStack {
   final INavigationService navigationService;
   final IUserService userService;
   final ITestService testService;
+  final ITestExecutionService testExecutionService;
   final AutoMapper mapper;
 
   static const String _homeSegmentName = 'home';
@@ -24,7 +25,8 @@ class WatcherRouteStack {
       {required this.navigationService,
       required this.userService,
       required this.mapper,
-      required this.testService}) {
+      required this.testService,
+      required this.testExecutionService}) {
     navigationHistory.add(WatcherRoutePart.signIn());
   }
 
@@ -33,6 +35,7 @@ class WatcherRouteStack {
       required this.userService,
       required this.mapper,
       required this.testService,
+      required this.testExecutionService,
       required List<String> pathSegments}) {
     if (pathSegments.isEmpty) {
       navigationHistory.add(WatcherRoutePart.signIn());
@@ -64,6 +67,7 @@ class WatcherRouteStack {
                   navigationService: navigationService,
                   testService: testService,
                   mapper: mapper,
+                  testExecutionService: testExecutionService,
                 )),
             signIn: (_) => MaterialPage(
                     child: SignInPage(
@@ -75,10 +79,15 @@ class WatcherRouteStack {
                     child: HomePage(
                   navigationService: navigationService,
                   testService: testService,
+                  testExecutionService: testExecutionService,
                   mapper: mapper,
                 )),
             addTest: (_) => MaterialPage(
-                child: AddTestPage(navigationService: navigationService))))
+                child: AddTestPage(
+                    navigationService: navigationService,
+                  testService: testService,
+                  mapper: mapper,
+                ))))
         .toList();
   }
 

@@ -1,5 +1,5 @@
 class SignIn {
-  late final String Email, Password;
+  late final String email, password;
 
-  SignIn(this.Email, this.Password);
+  SignIn(this.email, this.password);
 }

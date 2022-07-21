@@ -54,14 +54,14 @@ namespace Watcher.Controllers.Api.V1.Dashboard
 		}
 
 		[HttpPost("signOut")]
-		[Authorize(Roles = "SalonUser")]
+		[Authorize(Roles = "User")]
 		public Task SignOutAsync()
 		{
 			return HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 		}
 
 		[HttpGet("issignedin")]
-		[Authorize(Roles = "SalonUser")]
+		[Authorize(Roles = "User")]
 		public void IsSignedIn() { }
 
 		//[HttpPut("changePassword")]
@@ -85,7 +85,7 @@ namespace Watcher.Controllers.Api.V1.Dashboard
 				var claims = new Claim[]
 				{
 					new Claim(ClaimTypes.Name, user.Email),
-					new Claim(ClaimTypes.Role, "SalonUser"),
+					new Claim(ClaimTypes.Role, "User"),
 					new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 				};
 

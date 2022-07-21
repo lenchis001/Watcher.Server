@@ -23,6 +23,6 @@ class UserApiService extends CrudApiService<User, AddUser>
   Future<DefaultProcessingResult> signIn(SignIn data) {
     return this
         .communicationService
-        .makePost<SignIn>(_signInUri, data);
+        .makePost<SignIn>(uri: _signInUri, data: data);
   }
 }

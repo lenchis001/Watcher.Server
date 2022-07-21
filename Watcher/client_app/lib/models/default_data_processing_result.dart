@@ -5,6 +5,8 @@ import 'error_code.dart';
 class DefaultDataProcessingResult<D> extends DataProcessingResult<ErrorCode, D> {
   DefaultDataProcessingResult({
     required ErrorCode errorCode,
-    required D data
+    D? data
   }) : super(errorCode: errorCode, data: data);
+
+  DefaultDataProcessingResult.unknownError(): this(errorCode: ErrorCode.UNKNOWN);
 }

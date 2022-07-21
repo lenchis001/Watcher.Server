@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AddUser _$AddUserFromJson(Map<String, dynamic> json) {
-  return _DataAddUser.fromJson(json);
+  return _$DataAddUser.fromJson(json);
 }
 
 /// @nodoc
@@ -62,30 +62,30 @@ class _$AddUserCopyWithImpl<$Res> implements $AddUserCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DataAddUserCopyWith<$Res> implements $AddUserCopyWith<$Res> {
-  factory _$DataAddUserCopyWith(
-          _DataAddUser value, $Res Function(_DataAddUser) then) =
-      __$DataAddUserCopyWithImpl<$Res>;
+abstract class _$$DataAddUserCopyWith<$Res> implements $AddUserCopyWith<$Res> {
+  factory _$$DataAddUserCopyWith(
+          _$DataAddUser value, $Res Function(_$DataAddUser) then) =
+      __$$DataAddUserCopyWithImpl<$Res>;
   @override
   $Res call({String email, String password});
 }
 
 /// @nodoc
-class __$DataAddUserCopyWithImpl<$Res> extends _$AddUserCopyWithImpl<$Res>
-    implements _$DataAddUserCopyWith<$Res> {
-  __$DataAddUserCopyWithImpl(
-      _DataAddUser _value, $Res Function(_DataAddUser) _then)
-      : super(_value, (v) => _then(v as _DataAddUser));
+class __$$DataAddUserCopyWithImpl<$Res> extends _$AddUserCopyWithImpl<$Res>
+    implements _$$DataAddUserCopyWith<$Res> {
+  __$$DataAddUserCopyWithImpl(
+      _$DataAddUser _value, $Res Function(_$DataAddUser) _then)
+      : super(_value, (v) => _then(v as _$DataAddUser));
 
   @override
-  _DataAddUser get _value => super._value as _DataAddUser;
+  _$DataAddUser get _value => super._value as _$DataAddUser;
 
   @override
   $Res call({
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_DataAddUser(
+    return _then(_$DataAddUser(
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -100,11 +100,11 @@ class __$DataAddUserCopyWithImpl<$Res> extends _$AddUserCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DataAddUser implements _DataAddUser {
-  _$_DataAddUser({required this.email, required this.password});
+class _$_$DataAddUser implements _$DataAddUser {
+  _$_$DataAddUser({required this.email, required this.password});
 
-  factory _$_DataAddUser.fromJson(Map<String, dynamic> json) =>
-      _$$_DataAddUserFromJson(json);
+  factory _$_$DataAddUser.fromJson(Map<String, dynamic> json) =>
+      _$$_$DataAddUserFromJson(json);
 
   @override
   final String email;
@@ -120,7 +120,7 @@ class _$_DataAddUser implements _DataAddUser {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DataAddUser &&
+            other is _$DataAddUser &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password));
   }
@@ -134,22 +134,22 @@ class _$_DataAddUser implements _DataAddUser {
 
   @JsonKey(ignore: true)
   @override
-  _$DataAddUserCopyWith<_DataAddUser> get copyWith =>
-      __$DataAddUserCopyWithImpl<_DataAddUser>(this, _$identity);
+  _$$DataAddUserCopyWith<_$DataAddUser> get copyWith =>
+      __$$DataAddUserCopyWithImpl<_$DataAddUser>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataAddUserToJson(this);
+    return _$$_$DataAddUserToJson(this);
   }
 }
 
-abstract class _DataAddUser implements AddUser {
-  factory _DataAddUser(
+abstract class _$DataAddUser implements AddUser {
+  factory _$DataAddUser(
       {required final String email,
-      required final String password}) = _$_DataAddUser;
+      required final String password}) = _$_$DataAddUser;
 
-  factory _DataAddUser.fromJson(Map<String, dynamic> json) =
-      _$_DataAddUser.fromJson;
+  factory _$DataAddUser.fromJson(Map<String, dynamic> json) =
+      _$_$DataAddUser.fromJson;
 
   @override
   String get email => throw _privateConstructorUsedError;
@@ -157,6 +157,6 @@ abstract class _DataAddUser implements AddUser {
   String get password => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$DataAddUserCopyWith<_DataAddUser> get copyWith =>
+  _$$DataAddUserCopyWith<_$DataAddUser> get copyWith =>
       throw _privateConstructorUsedError;
 }

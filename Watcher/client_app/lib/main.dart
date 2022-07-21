@@ -1,4 +1,5 @@
 import 'package:automap/automap.dart';
+import 'package:client_app/models/default_data_processing_result.dart';
 import 'package:client_app/models/user/sign_in.dart';
 import 'package:client_app/navigation/inavigation_service.dart';
 import 'package:client_app/navigation/navigation_service.dart';
@@ -6,11 +7,15 @@ import 'package:client_app/navigation/watcher_route_information_parser.dart';
 import 'package:client_app/navigation/watcher_router_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:client_app/models/default_processing_result.dart';
+import 'package:client_app/models/error_code.dart';
+import 'package:client_app/models/test/add_test.dart';
+import 'package:client_app/models/test/test.dart';
+import 'package:client_app/models/user/add_user.dart';
+
 import 'package:watcher_client_bll/watcher_client_bll.dart' as wcb;
 
-import 'models/default_processing_result.dart';
-import 'models/error_code.dart';
-import 'models/user/add_user.dart';
+import 'models/test_execution/test_execution.dart';
 
 void main() {
   var container = GetIt.asNewInstance();
@@ -18,8 +23,7 @@ void main() {
 
   runApp(MaterialApp.router(
       routeInformationParser: container.get<WatcherRouteInformationParser>(),
-      routerDelegate: container.get<WatcherRouterDelegate>())
-  );
+      routerDelegate: container.get<WatcherRouterDelegate>()));
 }
 
 void setupDependencies(GetIt container) {
@@ -30,23 +34,27 @@ void setupDependencies(GetIt container) {
   container.registerSingleton(WatcherRouteInformationParser(
       navigationService: container.get(),
       userService: container.get(),
-      mapper: container.get()
-  ));
+      testService: container.get(),
+      testExecutionService: container.get(),
+      mapper: container.get()));
   container.registerSingleton(WatcherRouterDelegate(
-    navigationService: container.get(),
-    userService: container.get(),
-    mapper: container.get()
-  ));
+      navigationService: container.get(),
+      userService: container.get(),
+      testService: container.get(),
+      mapper: container.get(),
+  testExecutionService: container.get()));
 }
 
 void setupMappings(GetIt container) {
   container.registerSingleton<AutoMapper>(AutoMapper.I);
+  wcb.Facade.setupMappings(container.get());
 
   final mapper = container.get<AutoMapper>();
   mapper
-    ..addManualMap<SignIn, wcb.SignIn>((source, mapper, params) => wcb.SignIn(source.Email, source.Password))
+    ..addManualMap<SignIn, wcb.SignIn>(
+        (source, mapper, params) => wcb.SignIn(source.email, source.password))
     ..addManualMap<wcb.ErrorCode, ErrorCode>((source, mapper, params) {
-      switch(source) {
+      switch (source) {
         case wcb.ErrorCode.OK:
           return ErrorCode.OK;
         case wcb.ErrorCode.UNKNOWN:
@@ -55,10 +63,42 @@ void setupMappings(GetIt container) {
           return ErrorCode.UNAUTHORIZED;
       }
     })
-    ..addManualMap<wcb.DefaultProcessingResult, DefaultProcessingResult>((source, mapper, params) =>
-        DefaultProcessingResult(errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode)))
-    ..addManualMap<AddUser, wcb.AddUser>((source, mapper, params) =>
-        wcb.AddUser(source.Email, source.Password));
-
-  wcb.Facade.setupMappings(container.get());
+    ..addManualMap<wcb.DefaultProcessingResult, DefaultProcessingResult>(
+        (source, mapper, params) => DefaultProcessingResult(
+            errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode)))
+    ..addManualMap<AddUser, wcb.AddUser>(
+        (source, mapper, params) => wcb.AddUser(source.email, source.password))
+    ..addManualMap<AddTest, wcb.AddTest>((source, mapper, params) =>
+        wcb.AddTest(name: source.name, script: source.script, cron: source.cron))
+    ..addManualMap<wcb.Test, Test>((source, mapper, params) => Test(
+      id: source.id,
+      name: source.name,
+      script: source.script,
+      cron: source.cron,
+    ))
+    ..addManualMap<wcb.DefaultDataProcessingResult<List<wcb.Test>>,
+        DefaultDataProcessingResult<List<Test>>>(
+            (source, mapper, params) => DefaultDataProcessingResult<List<Test>>(
+            errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode),
+            data: source.data == null
+                ? null
+                : source.data!
+                .map((value) => mapper.map<wcb.Test, Test>(value))
+                .toList()))
+    ..addManualMap<wcb.TestExecution, TestExecution>((source, mapper, params) => TestExecution(
+      id: source.id,
+      isSuccessful: source.isSuccessful,
+      log: source.log,
+      testId: source.testId,
+      dateTime: source.dateTime,
+    ))
+    ..addManualMap<wcb.DefaultDataProcessingResult<List<wcb.TestExecution>>,
+        DefaultDataProcessingResult<List<TestExecution>>>(
+            (source, mapper, params) => DefaultDataProcessingResult<List<TestExecution>>(
+            errorCode: mapper.map<wcb.ErrorCode, ErrorCode>(source.errorCode),
+            data: source.data == null
+                ? null
+                : source.data!
+                .map((value) => mapper.map<wcb.TestExecution, TestExecution>(value))
+                .toList()));
 }

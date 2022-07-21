@@ -1,6 +1,6 @@
 class User {
-  late final int Id;
-  late final String Email;
+  late final int id;
+  late final String email;
 
-  User(this.Id, this.Email);
+  User(this.id, this.email);
 }

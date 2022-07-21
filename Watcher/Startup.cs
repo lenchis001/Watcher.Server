@@ -58,6 +58,11 @@ namespace Watcher
 		{
 			if (env.IsDevelopment())
 			{
+				app.Use(async (context, next) =>
+				{
+
+					await next();
+				});
 				app.UseDeveloperExceptionPage();
 				app.UseCors(policy =>
 				{
@@ -70,8 +75,8 @@ namespace Watcher
 				app.UseExceptionHandler("/Error");
 			}
 
-			app.UseStaticFiles();
-			app.UseSpaStaticFiles();
+			//app.UseStaticFiles();
+			//app.UseSpaStaticFiles();
 
 			app.UseRouting();
 
@@ -88,10 +93,10 @@ namespace Watcher
 					.AllowAnonymous();
 			});
 
-			app.UseSpa(spa =>
-			{
-				spa.Options.SourcePath = "client_app";
-			});
+			//app.UseSpa(spa =>
+			//{
+			//	spa.Options.SourcePath = "client_app";
+			//});
 		}
 
 		public void ConfigureContainer(IUnityContainer container)
@@ -158,6 +163,19 @@ namespace Watcher
 					Converters.DefaultDataFetchResultToActionResult<
 						ICollection<BLL.Models.Tests.Test>,
 						ICollection<Models.v1.Tests.Test>
+					>
+				>();
+
+			// Test Executions
+			mapperConfiguration.CreateMap<BLL.Models.TestExecutions.TestExecution, Models.v1.TestExecutions.TestExecution>()
+				.ReverseMap();
+			mapperConfiguration.CreateMap<
+				BLL.Models.DefaultDataFetchResult<ICollection<BLL.Models.TestExecutions.TestExecution>>,
+				ActionResult<ICollection<Models.v1.TestExecutions.TestExecution>>>()
+				.ConvertUsing<
+					Converters.DefaultDataFetchResultToActionResult<
+						ICollection<BLL.Models.TestExecutions.TestExecution>,
+						ICollection<Models.v1.TestExecutions.TestExecution>
 					>
 				>();
 		}

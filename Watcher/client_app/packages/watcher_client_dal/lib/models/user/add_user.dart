@@ -9,7 +9,7 @@ class AddUser with _$AddUser implements IToJsonAware {
   factory AddUser({
     required String email,
     required String password
-  }) = _DataAddUser;
+  }) = _$DataAddUser;
 
   factory AddUser.fromJson(Map<String, dynamic> json) => _$AddUserFromJson(json);
 }

@@ -1,6 +1,6 @@
 class AddUser {
-  final String Email;
-  final String Password;
+  final String email;
+  final String password;
 
-  AddUser(this.Email, this.Password);
+  AddUser(this.email, this.password);
 }

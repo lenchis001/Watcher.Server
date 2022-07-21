@@ -10,5 +10,6 @@ namespace Watcher.BLL.Services
     {
         Task InitAsync();
         Task<DefaultDataFetchResult<ICollection<TestExecution>>> GetLastTwoAsync(int testId);
+        Task<DefaultDataFetchResult<ICollection<TestExecution>>> GetLatestAsync(int userId);
     }
 }

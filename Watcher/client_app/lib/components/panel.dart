@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Panel extends StatelessWidget{
-  final Widget child;
   final String header;
+  final Widget child;
 
   const Panel({
     Key? key,

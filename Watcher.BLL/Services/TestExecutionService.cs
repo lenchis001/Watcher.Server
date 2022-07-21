@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.ClearScript.V8;
 using Quartz;
 using Quartz.Impl;
 using Watcher.BLL.Jobs;
@@ -65,7 +66,7 @@ namespace Watcher.BLL.Services
             m.Put(nameof(ITestExecutionService), this);
             m.Put(nameof(INotificationService), _notificationService);
 
-            _triggers = testsFetchResult.Data
+                _triggers = testsFetchResult.Data
                 .ToDictionary(
                     t => JobBuilder.Create<TestJob>()
                                    .UsingJobData(nameof(Test.Name), t.Name)
@@ -92,6 +93,22 @@ namespace Watcher.BLL.Services
             await scheduler.Start();
 
             await scheduler.ScheduleJobs(_triggers, true);
+        }
+
+        public async Task<DefaultDataFetchResult<ICollection<TestExecution>>> GetLatestAsync(int userId)
+        {
+            var result = DefaultDataFetchResult<ICollection<TestExecution>>.UnknownErrorResult;
+
+            try
+            {
+                var dalEntities = await _repository.GetLatestAsync(userId);
+
+                result.Data = _mapper.Map<ICollection<TestExecution>>(dalEntities);
+                result.Error = ErrorCode.OK;
+            }
+            catch { }
+
+            return result;
         }
     }
 }

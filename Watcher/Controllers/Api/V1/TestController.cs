@@ -11,7 +11,7 @@ namespace Watcher.Controllers.Api.V1.Dashboard.BeautySalon
 {
 	[Route("api/v1/[controller]")]
 	[ApiController]
-	[Authorize(Roles = "SalonAdmin")]
+	[Authorize(Roles = "User")]
 	public class TestController : ControllerBase
 	{
 		private readonly ITestService _testService;

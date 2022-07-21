@@ -12,7 +12,7 @@
     <PackageReference Include="Taskus" Version="0.0.5" />
     <PackageReference Include="Unity" Version="5.11.10" />
     <PackageReference Include="Quartz" Version="3.4.0" />
-    <PackageReference Include="Microsoft.ClearScript.osx-x64" Version="7.3.1" />
+    <PackageReference Include="Microsoft.ClearScript.V8" Version="7.3.1" />
   </ItemGroup>
 
   <ItemGroup>

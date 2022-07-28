@@ -389,3 +389,5 @@ FodyWeavers.xsd
 
 # Dart
 pubspec.lock
+
+!client_app/packages/taskus

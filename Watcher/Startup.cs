@@ -75,10 +75,10 @@ namespace Watcher
 				app.UseExceptionHandler("/Error");
 			}
 
-			//app.UseStaticFiles();
-			//app.UseSpaStaticFiles();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
-			app.UseRouting();
+            app.UseRouting();
 
 			app.UseAuthentication();
 			app.UseAuthorization();
@@ -93,11 +93,11 @@ namespace Watcher
 					.AllowAnonymous();
 			});
 
-			//app.UseSpa(spa =>
-			//{
-			//	spa.Options.SourcePath = "client_app";
-			//});
-		}
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "client_app";
+            });
+        }
 
 		public void ConfigureContainer(IUnityContainer container)
 		{

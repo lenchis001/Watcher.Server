@@ -15,6 +15,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Unity.Microsoft.DependencyInjection" Version="5.11.5" />
     <PackageReference Include="Microsoft.ClearScript.osx-x64" Version="7.3.1" />
+    <PackageReference Include="Microsoft.ClearScript.linux-x64" Version="7.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,7 @@
     <None Remove="Microsoft.ClearScript.osx-x64" />
     <None Remove="Middleware\" />
     <None Remove="Models\v1\TestExecutions\" />
+    <None Remove="Microsoft.ClearScript.linux-x64" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\v1\Tests\" />

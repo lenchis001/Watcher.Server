@@ -14,8 +14,10 @@ WORKDIR /src
 COPY . .
 WORKDIR "/src/Watcher"
 RUN dotnet publish "Watcher.csproj" -c Release -o /app/publish
+
+WORKDIR /src
+RUN scripts/get_all.sh
 WORKDIR "/src/Watcher/client_app"
-RUN fvm flutter pub get
 RUN fvm flutter build web
 RUN rm -rf /app/publish/client_app/*
 RUN mv /src/Watcher/client_app/build/web/* /app/publish/client_app

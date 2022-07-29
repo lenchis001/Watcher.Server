@@ -8,7 +8,7 @@ namespace Watcher.BLL.Services
 	{
 		Task<DefaultDataFetchResult<ICollection<T>>> GetAllAsync();
 		Task<DefaultDataFetchResult<T>> GetByIdAsync(int id);
-		Task<DefaultFetchResult> AddAsync(ADD_TYPE entity);
+		Task<DefaultDataFetchResult<T>> AddAsync(ADD_TYPE entity);
 		Task<DefaultFetchResult> DeleteAsync(int id);
 		Task<DefaultFetchResult> UpdateAsync(T entity);
 	}

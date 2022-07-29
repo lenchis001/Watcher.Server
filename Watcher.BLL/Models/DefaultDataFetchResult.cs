@@ -11,5 +11,13 @@
 		{
 			Error = ErrorCode.ACCESS_DENIED
 		};
+
+		public DefaultFetchResult DefaultFetchResult
+        {
+			get => new DefaultFetchResult
+			{
+				Error = this.Error
+			};
+        }
 	}
 }

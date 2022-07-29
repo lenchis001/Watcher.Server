@@ -4,18 +4,35 @@ using Watcher.BLL.Models.Tests;
 using Watcher.DAL.Database.UnitOfWork.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Watcher.BLL.Services
 {
 	internal class TestService : CrudService<Test, AddTestData, ITestRepository, DAL.Database.Models.Test>, ITestService
 	{
-		public TestService(IMapper mapper, ITestRepository repository) : base(mapper, repository) {}
+		private readonly ITestExecutionService _testExecutionService;
 
-		public Task<DefaultFetchResult> AddAsync(AddTestData entity, int adminId)
+		public TestService(
+			IMapper mapper,
+			ITestRepository repository,
+			ITestExecutionService testExecutionService
+			) : base(mapper, repository) {
+			_testExecutionService = testExecutionService;
+		}
+
+		public async Task<DefaultFetchResult> AddAsync(AddTestData entity, int userId)
 		{
-			entity.UserId = adminId;
+			entity.UserId = userId;
 
-			return AddAsync(entity);
+			var addResult = await AddAsync(entity);
+
+			if(addResult.Error == ErrorCode.OK)
+            {
+				await _testExecutionService.ScheduleTest(addResult.Data);
+			}
+
+			return addResult.DefaultFetchResult;
 		}
 
 		public async Task<DefaultDataFetchResult<ICollection<Test>>> GetAllAsync(int userId)
@@ -53,7 +70,34 @@ namespace Watcher.BLL.Services
 			else
 			{
 				entity.UserId = userId;
-				return await UpdateAsync(entity);
+				result = await UpdateAsync(entity);
+
+				if(result.Error == ErrorCode.OK)
+                {
+					await _testExecutionService.UpdateScheduledJob(entity);
+                }
+			}
+
+			return result;
+		}
+
+		public async Task<DefaultFetchResult> DeleteAsync(int id, int userId)
+        {
+			var result = new DefaultFetchResult();
+
+			var isRelatedToUser = await IsRelatedToUser(id, userId);
+			if (!isRelatedToUser)
+			{
+				result.Error = ErrorCode.ACCESS_DENIED;
+			}
+			else
+			{
+				result = await DeleteAsync(id);
+
+				if (result.Error == ErrorCode.OK)
+				{
+					await _testExecutionService.DeleteTestSchedule(id);
+				}
 			}
 
 			return result;
@@ -63,5 +107,22 @@ namespace Watcher.BLL.Services
 		{
 			return _repository.IsRelatedToUser(id, userId);
 		}
-	}
+
+		public async Task InitAsync()
+		{
+			DefaultDataFetchResult<ICollection<Test>> testsFetchResult;
+
+			do
+			{
+				testsFetchResult = await GetAllAsync();
+
+				if (testsFetchResult.Error != ErrorCode.OK)
+				{
+					await Task.Delay(TimeSpan.FromSeconds(10));
+				}
+			} while (testsFetchResult.Error != ErrorCode.OK);
+
+			await Task.WhenAll(testsFetchResult.Data.Select( _testExecutionService.ScheduleTest));
+		}
+    }
 }

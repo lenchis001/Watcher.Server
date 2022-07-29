@@ -41,7 +41,6 @@ namespace Watcher.BLL.Jobs
                     engine.Script.console.log = new Action<dynamic>(Logging.log((a) =>
                     {
                         logs.Add($"{watch.Elapsed}: {a}");
-                        Debug.WriteLine($"Debug: {watch.Elapsed}: {a}");
                     }));
                     engine.Script._fetch = new Func<string, string, Task<Response>>(fetch);
 
@@ -65,12 +64,13 @@ namespace Watcher.BLL.Jobs
                          ");
 
                     await (result as Task);
-                    Debug.WriteLine($"Code done");
                 }
+
+                watch.Stop();
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"An error happened: {watch.Elapsed}: {e.Message}");
+                watch.Stop();
                 isSuccessful = false;
                 logs.Add($"Error: {watch.Elapsed}: {e.Message}");
             }

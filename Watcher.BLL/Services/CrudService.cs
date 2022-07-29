@@ -20,18 +20,20 @@ namespace Watcher.BLL.Services
 			_repository = repository;
 		}
 
-		public async Task<DefaultFetchResult> AddAsync(ADD_TYPE entity)
+		public async Task<DefaultDataFetchResult<T>> AddAsync(ADD_TYPE entity)
 		{
 			var dalEntity = _mapper.Map<RT>(entity);
 
-			var result = new DefaultFetchResult
+			var result = new DefaultDataFetchResult<T>
 			{
 				Error = ErrorCode.UNKNOWN
 			};
 
 			try
 			{
-				await _repository.AddAsync(dalEntity);
+				var addedEntity = await _repository.AddAsync(dalEntity);
+
+				result.Data = _mapper.Map<T>(addedEntity);
 				result.Error = ErrorCode.OK;
 			}
 			catch (System.Exception) { }

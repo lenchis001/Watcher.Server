@@ -96,16 +96,11 @@ class AddTestPageContentState extends State<AddTestPageContent> {
                           _future = widget.testService
                               .add(bllAddTest)
                               .then((value) {
-                                print('Map!');
-                            final a = widget.mapper.map<
+                            return widget.mapper.map<
                                 wcb.DefaultProcessingResult,
                                 DefaultProcessingResult>(value);
-
-                                print('Map2!');
-                            return a;
                           })
                               .then((value) {
-                            print('Logic!');
                             if (value.errorCode == ErrorCode.OK) {
                               Navigator.pop(context);
                             } else {

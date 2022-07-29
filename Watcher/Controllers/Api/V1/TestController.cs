@@ -48,9 +48,9 @@ namespace Watcher.Controllers.Api.V1.Dashboard.BeautySalon
 		[HttpPut]
 		public async Task<ActionResult> Put([FromBody] Test value)
 		{
-			var adminId = this.GetUserId();
+			var userId = this.GetUserId();
 			var bllEntity = _mapper.Map<BLL.Models.Tests.Test>(value);
-			var bllUpdateResult = await _testService.UpdateAsync(bllEntity, adminId);
+			var bllUpdateResult = await _testService.UpdateAsync(bllEntity, userId);
 			return _mapper.Map<ActionResult>(bllUpdateResult);
 		}
 
@@ -58,7 +58,8 @@ namespace Watcher.Controllers.Api.V1.Dashboard.BeautySalon
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(int id)
 		{
-			var bllFetchResult = await _testService.DeleteAsync(id);
+			var userId = this.GetUserId();
+			var bllFetchResult = await _testService.DeleteAsync(id, userId);
 			return _mapper.Map<ActionResult>(bllFetchResult);
 		}
 	}

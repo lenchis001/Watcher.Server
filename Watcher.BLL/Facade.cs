@@ -20,14 +20,14 @@ namespace Watcher.BLL
 
 			container.RegisterSingleton<IHashService, HashService>();
 			container.RegisterSingleton<IUserService, UserService>();
-			container.RegisterSingleton<ITestService, TestService>();
 			container.RegisterSingleton<ITestExecutionService, TestExecutionService>();
+			container.RegisterSingleton<ITestService, TestService>();
 			container.RegisterSingleton<INotificationService, NotificationService>();
 		}
 
 		public static void PostSetup(IUnityContainer container)
         {
-			container.Resolve<ITestExecutionService>().InitAsync();
+			container.Resolve<ITestService>().InitAsync();
 		}
 
 		public static void RegisterMappings(IMapperConfigurationExpression cfg)
